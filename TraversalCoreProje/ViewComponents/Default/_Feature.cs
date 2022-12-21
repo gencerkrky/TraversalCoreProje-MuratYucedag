@@ -9,7 +9,8 @@ namespace TraversalCoreProje.ViewComponents.Default
         FeatureManager featureManager = new FeatureManager(new EfFeatureDal ());
         public IViewComponentResult Invoke()
         {
-            var values = featureManager.TGetList();
+            //var values = featureManager.TGetList();
+            
             return View();
         }
     }
