@@ -127,10 +127,9 @@
                             <div class="col-sm-9 mt-sm-0 mt-3">
                                 <h3 class="mb-3 title">Alexander Ronald</h3>
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, sed et excepturi.
-                                    Distinctio fugit odit? Fugit ipsam. Lorem ipsum dolor sit.
+                                    çok güzel
                                 </p>
-                                <ul class="author-icons mt-4">
+                                <ul class="author-icons mt-4">  
                                     <li>
                                         <a class="facebook" href="#url">
                                             <span class="fa fa-facebook"
@@ -174,7 +173,7 @@
                     <!--//author-card-->
 
                     @await Component.InvokeAsync("_CommentList",new {id=ViewBag.i})
-                    @await Component.InvokeAsync("_AddComment")
+                    @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
 
                 </div>
             </div>
