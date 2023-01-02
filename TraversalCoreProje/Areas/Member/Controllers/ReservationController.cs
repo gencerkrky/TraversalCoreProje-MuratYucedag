@@ -1,10 +1,12 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TraversalCoreProje.Areas.Member.Controllers
 {
@@ -13,24 +15,36 @@ namespace TraversalCoreProje.Areas.Member.Controllers
     {
         DestinationManager destinationManager = new DestinationManager(new EfDestinationDal());
         ReservationManager reservationManager = new ReservationManager(new EfReservationDal());
-        public IActionResult MyCurrentReservation() 
-        { 
+        private readonly UserManager<AppUser> _userManager;
 
-            return View(); 
+        public ReservationController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        public IActionResult MyCurrentReservation()
+        {
+
+            return View();
         }
         public IActionResult MyOldReservation()
         {
             return View();
         }
-
+        public async Task<IActionResult> MyApprovalReservation()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var valueList = reservationManager.GetListApprovalReservation(values.Id);
+            return View(valueList);
+        }
         [HttpGet]
         public IActionResult NewReservation()
         {
             List<SelectListItem> values = (from x in destinationManager.TGetList()
                                            select new SelectListItem
                                            {
-                                               Text= x.City,
-                                               Value=x.DestinationID.ToString()
+                                               Text = x.City,
+                                               Value = x.DestinationID.ToString()
                                            }).ToList();
             ViewBag.v = values;
             return View();
@@ -38,7 +52,7 @@ namespace TraversalCoreProje.Areas.Member.Controllers
         [HttpPost]
         public IActionResult NewReservation(Reservation p)
         {
-            p.AppUserId= 1;
+            p.AppUserId = 1;
             p.Status = "Onay Bekliyor!";
             reservationManager.TAdd(p);
             return RedirectToAction("MyCurrentReservation");
