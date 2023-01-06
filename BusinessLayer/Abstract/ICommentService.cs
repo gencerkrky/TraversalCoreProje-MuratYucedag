@@ -10,5 +10,6 @@ namespace BusinessLayer.Abstract
     public interface ICommentService:IGenericService<Comment>
     {
         List<Comment> TGetDestintionById(int id);
+        List<Comment> TGetListCommentWithDestination();
     }
 }
