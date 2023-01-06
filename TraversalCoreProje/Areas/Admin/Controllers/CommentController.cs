@@ -24,7 +24,7 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         {
             var values = _commentService.TGetByID(id);
             _commentService.TDelete(values);
-            return RedirectToAction("/Admin/Comment/Index/");
+            return RedirectToAction("/Admin/Comment/Index/" );
         }
     }
 }

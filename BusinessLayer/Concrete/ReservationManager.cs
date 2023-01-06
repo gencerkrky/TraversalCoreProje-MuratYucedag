@@ -12,7 +12,7 @@ namespace BusinessLayer.Concrete
     public class ReservationManager : IReservationService
     {
         IReservationDal _reservationDal;
-public ReservationManager(IReservationDal reservationDal)
+        public ReservationManager(IReservationDal reservationDal)
         {
             _reservationDal = reservationDal;
         }
@@ -30,6 +30,11 @@ public ReservationManager(IReservationDal reservationDal)
         public List<Reservation> GetListWithReservationByWaitApproval(int id)
         {
             return _reservationDal.GetListWithReservationByWaitApproval(id);
+        }
+
+        public List<Reservation> GetListWithReservationByWaitAprroval(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public void TAdd(Reservation t)
